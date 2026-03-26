@@ -1,0 +1,7 @@
+unsloth
+unsloth_zoo
+accelerate
+torch
+numpy
+pillow
+transformers
