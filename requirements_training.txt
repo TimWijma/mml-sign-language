@@ -1,0 +1,20 @@
+numpy
+pillow
+
+transformers==5.2.0
+trl==0.22.2
+tokenizers
+
+bitsandbytes
+xformers==0.0.32.post2
+
+unsloth[base] @ git+https://github.com/unslothai/unsloth
+unsloth_zoo[base] @ git+https://github.com/unslothai/unsloth-zoo
+
+flash-linear-attention
+# causal_conv1d==1.6.0
+
+torch==2.8.0
+torchvision 
+
+datasets

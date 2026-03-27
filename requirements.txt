@@ -1,7 +1,3 @@
-unsloth
-unsloth_zoo
-accelerate
-torch
 numpy
+huggingface_hub
 pillow
-transformers
