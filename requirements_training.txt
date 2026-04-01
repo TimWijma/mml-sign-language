@@ -1,5 +1,6 @@
 numpy
 pillow
+av
 
 transformers==5.2.0
 trl==0.22.2
@@ -12,9 +13,9 @@ unsloth[base] @ git+https://github.com/unslothai/unsloth
 unsloth_zoo[base] @ git+https://github.com/unslothai/unsloth-zoo
 
 flash-linear-attention
-# causal_conv1d==1.6.0
 
 torch==2.8.0
-torchvision 
+torchvision
+torchcodec==0.7.0
 
 datasets
