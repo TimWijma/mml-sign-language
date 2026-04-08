@@ -1,6 +1,5 @@
 import torch
 from PIL import Image
-from torch.utils.data import Dataset
 
 def convert_row(row):
     decoder = row["video"]
@@ -48,13 +47,3 @@ def convert_row(row):
             },
         ]
     }
-
-class ASLVideoDataset(Dataset):
-    def __init__(self, hf_dataset):
-        self.data = hf_dataset
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        return convert_row(self.data[idx])
