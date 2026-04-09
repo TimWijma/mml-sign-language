@@ -32,10 +32,6 @@ def convert_row(row):
                     "type": "video",
                         "video": frames,
                         "max_pixels": 512 * 360,
-                        "video_metadata": {
-                            "fps": target_fps,
-                            "num_frames": n_frames
-                        },
                     },
                     {"type": "text", "text": "Translate the sign language in this video into English."},
                 ],
