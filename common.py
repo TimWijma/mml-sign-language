@@ -22,23 +22,20 @@ def convert_row(row):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sign language interpreter. Translate signs accurately into English."
+                "content": (
+                    "You are an expert American Sign Language (ASL) interpreter. "
+                    "Translate ASL from video into fluent, natural English. "
+                    "Focus on hand shapes, movements, and facial expressions. "
+                    "If a sign is ambiguous, provide your best interpretation. "
+                    "Output only the English translation, nothing else."
+                )
             },
-            
             {
                 "role": "user",
                 "content": [
-                    {
-                    "type": "video",
-                        "video": frames,
-                        "max_pixels": 512 * 360,
-                    },
-                    {"type": "text", "text": "Translate the sign language in this video into English."},
+                    {"type": "video", "video": frames_np, "max_pixels": 512 * 360 * n_frames},
+                    {"type": "text", "text": "Translate the sign language in this video into English. Carefully watch the signer's hand movements, and facial expressions."},
                 ],
-            },
-            {
-                "role": "assistant",
-                "content": [{"type": "text", "text": description}],
             },
         ]
     }
