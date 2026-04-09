@@ -31,9 +31,7 @@ def convert_row(row):
                     {
                     "type": "video",
                         "video": frames,
-                        "max_pixels": 512 * 360 * n_frames,
-                        "fps": target_fps,
-                        "num_frames": n_frames,
+                        "max_pixels": 512 * 360,
                         "video_metadata": {
                             "fps": target_fps,
                             "num_frames": n_frames
