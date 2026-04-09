@@ -9,7 +9,7 @@ def convert_row(row):
     duration_sec = total_frames / original_fps
 
     # Target ~8 fps
-    target_fps = float(10.0)
+    target_fps = float(24.0)
     n_frames = max(4, int(target_fps * duration_sec))
     
     indices = torch.linspace(0, total_frames - 1, n_frames).long().tolist()
@@ -33,9 +33,13 @@ def convert_row(row):
             {
                 "role": "user",
                 "content": [
-                    {"type": "video", "video": frames, "max_pixels": 512 * 360 * n_frames},
+                    {"type": "video", "video": frames, "max_pixels": 512 * 360},
                     {"type": "text", "text": "Translate the sign language in this video into English. Carefully watch the signer's hand movements, and facial expressions."},
                 ],
+            },
+            {
+                "role": "assistant",
+                "content": [{"type": "text", "text": description}],
             },
         ]
     }
