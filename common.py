@@ -33,7 +33,7 @@ def convert_row(row):
             {
                 "role": "user",
                 "content": [
-                    {"type": "video", "video": frames_np, "max_pixels": 512 * 360 * n_frames},
+                    {"type": "video", "video": frames, "max_pixels": 512 * 360 * n_frames},
                     {"type": "text", "text": "Translate the sign language in this video into English. Carefully watch the signer's hand movements, and facial expressions."},
                 ],
             },
