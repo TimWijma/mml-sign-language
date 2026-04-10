@@ -1,6 +1,7 @@
 numpy
 pillow
 av
+jupyter
 
 transformers==5.2.0
 trl==0.22.2
@@ -19,3 +20,5 @@ torchvision
 torchcodec==0.7.0
 
 datasets
+
+editdistance
