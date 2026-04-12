@@ -1,5 +1,5 @@
 numpy
 huggingface_hub
 pillow
-mediapipe
+mediapipe==0.10.21
 opencv-python
