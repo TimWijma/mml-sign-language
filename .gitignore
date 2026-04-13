@@ -1,5 +1,6 @@
 .venv/
 unsloth_compiled_cache/
 outputs/
+final_loras/
 __pycache__/
 training.py

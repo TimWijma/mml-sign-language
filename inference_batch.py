@@ -1,6 +1,5 @@
 import os
 import torch
-import editdistance
 import pandas as pd
 
 from unsloth import FastVisionModel
@@ -16,8 +15,11 @@ MODE = "normal"	# "normal" or "mosaic"
 
 DATASET_NAME = "Flimdejong/how2sign-3s" if MODE == "normal" else "TimWijma/how2sign-3s-mosaic"
 
+MODEL_NAME = "final_loras/crop_center"
+RESULTS_PATH = "results/predictions_crop_center_FINETUNED.csv"
+
 model, tokenizer = FastVisionModel.from_pretrained(
-	"unsloth/Qwen3.5-9B",
+	MODEL_NAME,
 	load_in_4bit=True
 )
 FastVisionModel.for_inference(model)
@@ -80,4 +82,4 @@ def predict_batch(dataset, batch_size=4, output_path="results/predictions.csv"):
 	print(f"Saved {len(df)} predictions to {output_path}")
 	return df
 
-df = predict_batch(dataset, batch_size=8, output_path="results/predictions.csv")
+df = predict_batch(dataset, batch_size=8, output_path=RESULTS_PATH)
