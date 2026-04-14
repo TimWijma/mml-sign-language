@@ -32,6 +32,7 @@ import argparse
 import traceback
 import multiprocessing as mp
 from pathlib import Path
+import pickle
 
 import numpy as np
 import torch
@@ -218,7 +219,7 @@ def frames_from_bytes(video_bytes: bytes,
 
     frames = decoder.get_frames_at(indices).data  # (T, C, H, W)
     frames = frames.permute(0, 2, 3, 1)           # (T, H, W, C)
-    frames = frames[:, :, 128:1152, :]            # horizontal crop
+    # frames = frames[:, :, 128:1152, :]            # horizontal crop
     return [f.numpy() for f in frames]
 
 
@@ -301,6 +302,12 @@ def _mark_done(split: str, indices: list):
 # ---------------------------------------------------------------------------
 
 def process_split(split_name: str, dataset) -> list:
+    results_path = CHECKPOINT_DIR / f"{split_name}.results.pkl"
+    if results_path.exists():
+        log.info("[%s] Loading results from disk …", split_name)
+        with open(results_path, "rb") as f:
+            return pickle.load(f)
+
     done = _load_done(split_name)
 
     log.info("[%s] Extracting video bytes in main process …", split_name)
@@ -343,6 +350,10 @@ def process_split(split_name: str, dataset) -> list:
     if pending_ckpt:
         _mark_done(split_name, pending_ckpt)
 
+    log.info("[%s] Saving results to disk …", split_name)
+    with open(results_path, "wb") as f:
+        pickle.dump(results, f)
+
     return results
 
 
@@ -355,10 +366,12 @@ def upload_split(split_name: str, rows: list, api: HfApi, token: str = None):
         log.info("[%s] Nothing to upload.", split_name)
         return
     log.info("[%s] Uploading %d rows to %s …", split_name, len(rows), DST_DATASET)
-    for start in range(0, len(rows), UPLOAD_BATCH):
-        batch = rows[start : start + UPLOAD_BATCH]
-        Dataset.from_list(batch).push_to_hub(DST_DATASET, split=split_name, token=token)
-        log.info("[%s] Uploaded rows %d–%d", split_name, start, start + len(batch) - 1)
+    Dataset.from_list(rows).push_to_hub(
+        DST_DATASET, 
+        split=split_name, 
+        token=token,
+        )
+    log.info("[%s] Upload complete.", split_name)
 
 
 # ---------------------------------------------------------------------------
