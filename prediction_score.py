@@ -3,7 +3,7 @@ import sacrebleu
 from bert_score import score as bert_score
 from sentence_transformers import SentenceTransformer, util
 
-PREDICTIONS_CSV = "results/predictions_crop_center_BASE.csv"
+PREDICTIONS_CSV = "results/predictions_mosaic_FINETUNED.csv"
 
 df = pd.read_csv(PREDICTIONS_CSV)
 

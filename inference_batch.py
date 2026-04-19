@@ -11,12 +11,12 @@ MAX_SEQ_LENGTH = 20000
 TARGET_FPS = 24
 RESOLUTION = (512, 360)
 
-MODE = "normal"	# "normal" or "mosaic"
+MODE = "mosaic"	# "normal" or "mosaic"
 
 DATASET_NAME = "Flimdejong/how2sign-3s" if MODE == "normal" else "TimWijma/how2sign-3s-mosaic"
 
-MODEL_NAME = "final_loras/crop_center"
-RESULTS_PATH = "results/predictions_crop_center_FINETUNED.csv"
+MODEL_NAME = "final_loras/mosaic"
+RESULTS_PATH = "results/predictions_mosaic_FINETUNED.csv"
 
 model, tokenizer = FastVisionModel.from_pretrained(
 	MODEL_NAME,
@@ -24,7 +24,8 @@ model, tokenizer = FastVisionModel.from_pretrained(
 )
 FastVisionModel.for_inference(model)
 
-dataset = load_dataset(DATASET_NAME, split="test")
+dataset = load_dataset(
+	DATASET_NAME, split="test", data_files={"test": "data/test-*.parquet"}, verification_mode="no_checks")
 
 print(f"Dataset {DATASET_NAME} loaded:\n {dataset}")
 
